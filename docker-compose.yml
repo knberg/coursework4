@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: knberg
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: basa
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: myemail@example.com
+      PGADMIN_DEFAULT_PASSWORD: 12345678
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
